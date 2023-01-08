@@ -5,29 +5,24 @@ static void	quick_sort(int *tab, int start, int end)
 	int	greater_limit;
 	int	aux;
 
-	if (end - start > 1)
+	if (end - start <= 1)
+		return ;
+	pivot = end - 1;
+	less_limit = start;
+	greater_limit = start;
+	while (greater_limit < end)
 	{
-		pivot = end - 1;
-		less_limit = start;
-		greater_limit = start;
-		while (greater_limit < pivot)
+		if (tab[greater_limit] <= tab[pivot])
 		{
-			if (tab[greater_limit] < tab[pivot])
-			{
-				aux = tab[greater_limit];
-				tab[greater_limit] = tab[less_limit];
-				tab[less_limit] = aux;
-				less_limit++;
-			}
-			greater_limit++;
+			aux = tab[greater_limit];
+			tab[greater_limit] = tab[less_limit];
+			tab[less_limit] = aux;
+			less_limit++;
 		}
-		aux = tab[pivot];
-		tab[pivot] = tab[less_limit];
-		tab[less_limit] = aux;
-		less_limit++;
-		quick_sort(tab, less_limit, end);
-		quick_sort(tab, start, less_limit - 1);
+		greater_limit++;
 	}
+	quick_sort(tab, less_limit, end);
+	quick_sort(tab, start, less_limit - 1);
 }
 
 void	sort(int *tab, int size)
